@@ -46,7 +46,7 @@ class PowerFormats(IntEnum):
     # unless stated, consumption / energy is 0.01 kWh, and power in 0.1 W resolution
     BCD = 1
     BINARY = 2  # binary with energy in 0.1 kWh resolution
-    MIXED = 3  # mixed/INT (byte = 0-99)
+    BASE100 = 3  # base/radix 100 encoding (byte = 0-99)
     BINARY1 = 12  # binary
 
 
@@ -1038,7 +1038,7 @@ class XC1MessageBody(MessageBody):
                 (byte >> 4) * 10 + (byte & 0x0F) + value * 100
             ),
             PowerFormats.BINARY: lambda byte, value: byte + (value << 8),
-            PowerFormats.MIXED: lambda byte, value: byte + value * 100,
+            PowerFormats.BASE100: lambda byte, value: byte + value * 100,
         },
     )
 
